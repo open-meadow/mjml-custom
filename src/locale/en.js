@@ -40,6 +40,7 @@ export default {
         text: 'Text',
         wrapper: 'Wrapper',
         raw: 'Raw',
+        carousel: 'Carousel',
       },
     }
   },
