@@ -21,6 +21,7 @@ import loadNavBarLink from './NavBarLink';
 import loadHero from './Hero';
 import loadRaw from './Raw';
 import loadCarousel from './Carousel';
+import loadCarouselImage from './CarouselImage';
 import { RequiredPluginOptions } from '..';
 
 export default (editor: Editor, opt: RequiredPluginOptions) => {
@@ -305,6 +306,7 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadHero,
     loadRaw,
     loadCarousel,
+    loadCarouselImage,
   ]
   .forEach(module => module(editor, compOpts));
 };

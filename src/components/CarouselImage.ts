@@ -1,14 +1,14 @@
-// Specs: https://documentation.mjml.io/#mj-image
 import type { Editor } from 'grapesjs';
 import { componentsToQuery, getName, isComponentType } from './utils';
 import { type as typeSection } from './Section';
 import { type as typeColumn } from './Column';
 import { type as typeHero } from './Hero';
+import { type as typeCarousel } from './Carousel';
 
-export const type = 'mj-carousel';
+export const type = 'mj-carousel-image';
 
 export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
-  console.log("Carousel!!!");
+    console.log("carousel-image");
   editor.Components.addType(type, {
     isComponent: isComponentType(type),
     extend: 'image',
@@ -17,8 +17,8 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
       defaults: {
         resizable: false,
         highlightable: false,
-        name: getName(editor, 'carousel'),
-        draggable: componentsToQuery([typeSection, typeColumn, typeHero]),
+        name: getName(editor, 'image'),
+        draggable: componentsToQuery([typeSection, typeColumn, typeHero, typeCarousel]),
         stylable: [
           'width', 'height',
           'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
@@ -32,6 +32,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
           'padding-right': '25px',
           'padding-left': '25px',
           'align': 'center',
+          'border': '3px solid red',
         },
         traits: ['href', 'rel', 'alt', 'title'],
         void: false,
@@ -40,24 +41,24 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
 
     view: {
       ...coreMjmlView,
-      tagName: 'div',
+      tagName: 'tr',
       attributes: {
         style: 'pointer-events: all; display: table; width: 100%; user-select: none;',
       },
 
       getMjmlTemplate() {
         return {
-          start: `<mjml><mj-body width="auto">`,
-          end: `</mj-column></mj-body></mjml>`,
+          start: `<mjml><mj-body width="auto"><mj-column><mj-carousel>`,
+          end: `</mj-carousel></mj-column></mj-body></mjml>`,
         };
       },
 
       getTemplateFromEl(sandboxEl: any) {
-        return sandboxEl.querySelector('div').innerHTML;
+        return sandboxEl.querySelector('tr').innerHTML;
       },
 
       getChildrenSelector() {
-        return 'div';
+        return 'img';
       },
     },
   });
