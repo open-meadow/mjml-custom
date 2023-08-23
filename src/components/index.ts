@@ -20,6 +20,7 @@ import loadNavBar from './NavBar';
 import loadNavBarLink from './NavBarLink';
 import loadHero from './Hero';
 import loadRaw from './Raw';
+import loadCarousel from './Carousel';
 import { RequiredPluginOptions } from '..';
 
 export default (editor: Editor, opt: RequiredPluginOptions) => {
@@ -303,6 +304,7 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadNavBarLink,
     loadHero,
     loadRaw,
+    loadCarousel,
   ]
   .forEach(module => module(editor, compOpts));
 };

@@ -7,6 +7,7 @@ export const type = 'mj-column';
 
 export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }: any) => {
   const clmPadd = opt.columnsPadding;
+  console.log("COLUMNNNN");
 
   editor.Components.addType(type, {
     isComponent: isComponentType(type),
@@ -22,7 +23,7 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
           'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
         ],
         'style-default': {
-          'vertical-align': 'top'
+          'vertical-align': 'top',
         }
       },
     },
