@@ -191,6 +191,7 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
     </mj-raw>`,
   });
 
+  // my additions
   addBlock("mj-carousel", {
     label: getI18nLabel("carousel"),
     media: `<svg viewBox="0 0 24 24">

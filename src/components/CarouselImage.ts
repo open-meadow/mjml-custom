@@ -1,3 +1,4 @@
+// my component
 import type { Editor } from "grapesjs";
 import { componentsToQuery, getName, isComponentType } from "./utils";
 import { type as typeSection } from "./Section";
