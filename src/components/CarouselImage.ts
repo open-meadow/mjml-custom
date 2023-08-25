@@ -97,7 +97,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
       },
 
       getTemplateFromEl(sandboxEl: any) {
-        return sandboxEl.querySelector("td").innerHTML;
+        return sandboxEl.querySelector("tr").innerHTML;
       },
 
       getChildrenSelector() {
