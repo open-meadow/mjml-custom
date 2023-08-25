@@ -41,6 +41,7 @@ export default {
         wrapper: 'Wrapper',
         raw: 'Raw',
         carousel: 'Carousel',
+        carouselImage: 'Carousel Image',
       },
     }
   },

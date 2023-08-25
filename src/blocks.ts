@@ -197,8 +197,20 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
       <path fill="currentColor" d="M21 18H2V20H21V18M19 10V14H4V10H19M20 8H3C2.45 8 2 8.45 2 9V15C2 15.55 2.45 16 3 16H20C20.55 16 21 15.55 21 15V9C21 8.45 20.55 8 20 8M21 4H2V6H21V4Z" />
     </svg>`,
     content: `<mj-carousel>
+        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image 2" />
         <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x141" alt="Example image" />
-        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image" />
+        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x141" alt="Example image 3" />
     </mj-carousel>`,
   });
+
+  addBlock("mj-carousel-image", {
+    label: getI18nLabel("carouselImage"),
+    media: `<svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M21 18H2V20H21V18M19 10V14H4V10H19M20 8H3C2.45 8 2 8.45 2 9V15C2 15.55 2.45 16 3 16H20C20.55 16 21 15.55 21 15V9C21 8.45 20.55 8 20 8M21 4H2V6H21V4Z" />
+    </svg>`,
+    content: `
+        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image 2" />
+    `,
+  });
+
 };
