@@ -1,41 +1,40 @@
-import type { Editor } from 'grapesjs';
-import { mjmlConvert, debounce } from './utils';
-import loadMjml from './mjml';
-import loadHead from './Head';
-import loadStyle from './Style';
-import loadFont from './Font';
-import loadBody from './Body';
-import loadWrapper from './Wrapper';
-import loadSection from './Section';
-import loadGroup from './Group';
-import loadColumn from './Column';
-import loadText from './Text';
-import loadButton from './Button';
-import loadImage from './Image';
-import loadSocial from './Social';
-import loadSocialElement from './SocialElement';
-import loadDivider from './Divider';
-import loadSpacer from './Spacer';
-import loadNavBar from './NavBar';
-import loadNavBarLink from './NavBarLink';
-import loadHero from './Hero';
-import loadRaw from './Raw';
-import loadCarousel from './Carousel';
-import loadCarouselImage from './CarouselImage';
-import { RequiredPluginOptions } from '..';
+import type { Editor } from "grapesjs";
+import { mjmlConvert, debounce } from "./utils";
+import loadMjml from "./mjml";
+import loadHead from "./Head";
+import loadStyle from "./Style";
+import loadFont from "./Font";
+import loadBody from "./Body";
+import loadWrapper from "./Wrapper";
+import loadSection from "./Section";
+import loadGroup from "./Group";
+import loadColumn from "./Column";
+import loadText from "./Text";
+import loadButton from "./Button";
+import loadImage from "./Image";
+import loadSocial from "./Social";
+import loadSocialElement from "./SocialElement";
+import loadDivider from "./Divider";
+import loadSpacer from "./Spacer";
+import loadNavBar from "./NavBar";
+import loadNavBarLink from "./NavBarLink";
+import loadHero from "./Hero";
+import loadRaw from "./Raw";
+import loadCarousel from "./Carousel";
+import loadCarouselImage from "./CarouselImage";
+import { RequiredPluginOptions } from "..";
 
 export default (editor: Editor, opt: RequiredPluginOptions) => {
-  const { Components  } = editor;
+  const { Components } = editor;
   // @ts-ignore
   const ComponentsView = Components.ComponentsView;
-  const sandboxEl = document.createElement('div');
-
+  const sandboxEl = document.createElement("div");
 
   // MJML Core model
   let coreMjmlModel = {
     init() {
-      const attrs = { ...this.get('attributes') };
-      const style = { ...this.get('style-default'), ...this.get('style') };
+      const attrs = { ...this.get("attributes") };
+      const style = { ...this.get("style-default"), ...this.get("style") };
 
       for (let prop in style) {
         if (!(prop in attrs)) {
@@ -43,39 +42,37 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
         }
       }
 
-      this.set('attributes', attrs);
-      this.set('style', attrs);
-      this.listenTo(this, 'change:style', this.handleStyleChange);
-      this.listenTo(this, 'change:attributes', this.handleAttributeChange);
+      this.set("attributes", attrs);
+      this.set("style", attrs);
+      this.listenTo(this, "change:style", this.handleStyleChange);
+      this.listenTo(this, "change:attributes", this.handleAttributeChange);
     },
 
     handleAttributeChange(m: any, v: any, opts: any) {
-      this.setStyle(this.get('attributes'), opts);
+      this.setStyle(this.get("attributes"), opts);
     },
 
     handleStyleChange(m: any, v: any, opts: any) {
       const style = this.getStyle();
       delete style.__p;
-      this.set('attributes', style, opts);
+      this.set("attributes", style, opts);
     },
 
-
     getMjmlAttributes() {
-      const attr = this.get('attributes') || {};
+      const attr = this.get("attributes") || {};
       delete attr.style;
-      const src = this.get('src');
+      const src = this.get("src");
       if (src) attr.src = src;
       return attr;
     },
-
 
     /**
      * This will avoid rendering default attributes
      * @return {Object}
      */
     getAttrToHTML() {
-      const attr = { ...this.get('attributes') };
-      const style = { ...this.get('style-default') };
+      const attr = { ...this.get("attributes") };
+      const style = { ...this.get("style-default") };
       delete attr.style;
       delete attr.id;
 
@@ -90,25 +87,24 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
       return attr;
     },
 
-
     /**
      * Have to change a few things for the MJML's xml (no id, style, class)
      */
     toHTML() {
       const model = this;
-      const tag = model.get('tagName');
-      const voidTag = model.get('void');
+      const tag = model.get("tagName");
+      const voidTag = model.get("void");
       const attr = this.getAttrToHTML();
-      let code = '';
-      let strAttr = '';
+      let code = "";
+      let strAttr = "";
 
       for (let prop in attr) {
         const val = attr[prop];
-        const hasValue = typeof val !== 'undefined' && val !== '';
-        strAttr += hasValue ? ` ${prop}="${val}"` : '';
+        const hasValue = typeof val !== "undefined" && val !== "";
+        strAttr += hasValue ? ` ${prop}="${val}"` : "";
       }
 
-      code += `<${tag}${strAttr}${voidTag ? '/' : ''}>` + model.get('content');
+      code += `<${tag}${strAttr}${voidTag ? "/" : ""}>` + model.get("content");
 
       model.components().forEach((model: any) => {
         code += model.toHTML();
@@ -122,10 +118,9 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     },
 
     isHidden() {
-      return this.getStyle().display === 'none';
-    }
+      return this.getStyle().display === "none";
+    },
   } as any;
-
 
   /**
    * MJML Core View.
@@ -151,11 +146,10 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
    */
   let coreMjmlView = {
     init() {
-      this.stopListening(this.model, 'change:style');
-      this.listenTo(this.model, 'change:attributes change:src', this.rerender);
+      this.stopListening(this.model, "change:style");
+      this.listenTo(this.model, "change:attributes change:src", this.rerender);
       this.debouncedRender = debounce(this.render.bind(this), 0);
     },
-
 
     rerender() {
       this.render(null, null, {}, 1);
@@ -176,14 +170,16 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
      */
     getInnerMjmlTemplate() {
       const { model } = this;
-      const tagName = model.get('tagName');
+      const tagName = model.get("tagName");
       const attr = model.getMjmlAttributes();
-      let strAttr = '';
+      let strAttr = "";
 
       for (let prop in attr) {
         const val = attr[prop];
-        strAttr += typeof val !== 'undefined' && val !== '' ?
-          ' ' + prop + '="' + val + '"' : '';
+        strAttr +=
+          typeof val !== "undefined" && val !== ""
+            ? " " + prop + '="' + val + '"'
+            : "";
       }
 
       return {
@@ -208,14 +204,50 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
       const mjml = `${mjmlTmpl.start}${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`;
       const htmlOutput = mjmlConvert(mjml, opt.fonts);
       let html = htmlOutput.html;
-      html = html.replace(/<body(.*)>/, '<body>');
-      let start = html.indexOf('<body>') + 6;
-      let end = html.indexOf('</body>');
+      html = html.replace(/<body(.*)>/, "<body>");
+      let start = html.indexOf("<body>") + 6;
+      let end = html.indexOf("</body>");
       html = html.substring(start, end).trim();
       sandboxEl.innerHTML = html;
       return this.getTemplateFromEl(sandboxEl);
     },
 
+    // getTemplateFromMjmlWithStyle() {
+    //   let mjmlTmpl = this.getMjmlTemplate();
+    //   let innerMjml = this.getInnerMjmlTemplate();
+
+    //   const htmlOutput = mjmlTmpl(`${mjmlTmpl.start}
+    //     ${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`);
+    //   let html = htmlOutput.html;
+
+    //   // I need styles for responsive columns
+    //   let styles: string[] = [];
+    //   sandboxEl.innerHTML = html;
+    //   var styleArr = Array.from(sandboxEl.querySelectorAll("style"));
+    //   styleArr.forEach((item) => {
+    //     styles.push(item.innerHTML);
+    //   });
+
+    //   let content = html.replace(/<body(.*)>/, "<body>");
+    //   let start = content.indexOf("<body>") + 6;
+    //   let end = content.indexOf("</body>");
+    //   sandboxEl.innerHTML = content.substring(start, end).trim();
+    //   let componentEl = this.getTemplateFromEl(sandboxEl); // getTemplateFromEl needs to be defined per component basis
+
+    //   // Copy all rendered attributes (TODO need for all)
+    //   let attributes = {};
+    //   const elAttrs = componentEl.attributes;
+
+    //   // for (let elAttr, i = 0, len = elAttrs.length; i < len; i++) {
+    //   //   elAttr = elAttrs[i];
+    //   //   attributes[elAttr.name] = elAttr.value;
+    //   // }
+
+    //   return {
+    //     content: componentEl.innerHTML,
+    //     style: styles.join(" "),
+    //   };
+    // },
 
     /**
      * Render children components
@@ -227,12 +259,14 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
 
       // This trick will help perfs by caching children
       if (!appendChildren) {
-        this.childrenView = this.childrenView || new ComponentsView({
-          collection: this.model.get('components'),
-          // @ts-ignore
-          config: this.config,
-          componentTypes: this.opts.componentTypes,
-        });
+        this.childrenView =
+          this.childrenView ||
+          new ComponentsView({
+            collection: this.model.get("components"),
+            // @ts-ignore
+            config: this.config,
+            componentTypes: this.opts.componentTypes,
+          });
         this.childNodes = this.childrenView.render(container).el.childNodes;
       } else {
         this.childrenView.parentEl = container;
@@ -247,7 +281,7 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
 
     checkVisibility() {
       if (this.model.isHidden?.()) {
-        this.el.style.display = 'none';
+        this.el.style.display = "none";
       }
     },
 
@@ -255,7 +289,6 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
       this.el.style.cssText = this.attributes.style;
       this.checkVisibility();
     },
-
 
     render(p: any, c: any, opts: any, appendChildren: boolean) {
       this.renderAttributes();
@@ -265,23 +298,22 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
       this.renderStyle();
 
       return this;
-    }
+    },
   } as any;
-
 
   // MJML Internal view (for elements inside mj-columns)
   const compOpts = { coreMjmlModel, coreMjmlView, opt, sandboxEl };
 
   // Avoid the <body> tag from the default wrapper
-  editor.Components.addType('wrapper', {
+  editor.Components.addType("wrapper", {
     model: {
       defaults: {
         highlightable: false,
       },
       toHTML(opts: any) {
         return this.getInnerHTML(opts)!;
-      }
-    }
+      },
+    },
   });
 
   [
@@ -307,6 +339,5 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadRaw,
     loadCarousel,
     loadCarouselImage,
-  ]
-  .forEach(module => module(editor, compOpts));
+  ].forEach((module) => module(editor, compOpts));
 };

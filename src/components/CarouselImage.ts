@@ -18,6 +18,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
         name: getName(editor, "carousel-image"),
         resizable: true,
         highlightable: true,
+        extend: 'img',
         draggable: componentsToQuery([
           typeSection,
           typeColumn,
@@ -47,34 +48,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
         "style-default": {
           border: "3px solid green",
         },
-        traits: [
-          {
-            type: "select",
-            label: "Icon",
-            name: "name",
-            options: [
-              { value: "custom", name: "Custom" },
-              { value: "facebook", name: "Facebook" },
-              { value: "twitter", name: "Twitter" },
-              { value: "google", name: "Google" },
-              { value: "instagram", name: "Instagram" },
-              { value: "web", name: "Web" },
-              { value: "youtube", name: "Youtube" },
-              { value: "pinterest", name: "Pinterest" },
-              { value: "linkedin", name: "Linkedin" },
-              { value: "snapchat", name: "Snapchat" },
-              { value: "vimeo", name: "Vimeo" },
-              { value: "tumblr", name: "Tumblr" },
-              { value: "github", name: "Github" },
-              { value: "soundcloud", name: "SoundCloud" },
-              { value: "medium", name: "Medium" },
-              { value: "dribbble", name: "Dribbble" },
-              { value: "xing", name: "Xing" },
-            ],
-          },
-          { name: "src" },
-          { name: "href" },
-        ],
+        traits: ["href", "src", "rel", "alt", "title"],
       },
     },
 
@@ -88,8 +62,22 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
       getMjmlTemplate() {
         let parentView = this.model.parent()?.view;
 
+        // if (parentView?.getInnerMjmlTemplate) {
+        //   let mjmlCarousel = coreMjmlView.getInnerMjmlTemplate.call(parentView);
+        //   return {
+        //     start: `<mjml><mj-body><mj-column>${mjmlCarousel.start}`,
+        //     end: `${mjmlCarousel.end}</mj-column></mj-body></mjml>`,
+        //   };
+        // } else {
+        //   return {
+        //     start: `<mjml><mj-body><mj-column><mj-carousel>`,
+        //     end: `</mj-carousel></mj-column></mj-body></mjml>`,
+        //   };
+        // }
+
         let mjmlCarousel = coreMjmlView.getInnerMjmlTemplate.call(parentView);
         console.log("mjmlCAr: ", mjmlCarousel);
+
         return {
           start: `<mjml><mj-body width="auto"><mj-section>${mjmlCarousel.start}`,
           end: `${mjmlCarousel.end}</mj-section></mj-body></mjml>`,

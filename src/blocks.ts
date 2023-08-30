@@ -194,24 +194,19 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
   // my additions
   addBlock("mj-carousel", {
     label: getI18nLabel("carousel"),
-    media: `<svg viewBox="0 0 24 24">
-      <path fill="currentColor" d="M21 18H2V20H21V18M19 10V14H4V10H19M20 8H3C2.45 8 2 8.45 2 9V15C2 15.55 2.45 16 3 16H20C20.55 16 21 15.55 21 15V9C21 8.45 20.55 8 20 8M21 4H2V6H21V4Z" />
-    </svg>`,
+    media: `<svg viewBox="0 0 23 24">
+    <path fill="currentColor" d="M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z"/>
+  </svg>`,
     content: `<mj-carousel>
-        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image 2" />
-        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x141" alt="Example image" />
-        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x141" alt="Example image 3" />
+    <mj-carousel-image src="https://source.unsplash.com/random/200x141" alt="Example image"></mj-carousel-image>
+    <mj-carousel-image src="https://source.unsplash.com/random/200x143" alt="Example image 3"></mj-carousel-image>
     </mj-carousel>`,
+    attributes: { class: 'fa fa-image' },
   });
 
   addBlock("mj-carousel-image", {
     label: getI18nLabel("carouselImage"),
-    media: `<svg viewBox="0 0 24 24">
-      <path fill="currentColor" d="M21 18H2V20H21V18M19 10V14H4V10H19M20 8H3C2.45 8 2 8.45 2 9V15C2 15.55 2.45 16 3 16H20C20.55 16 21 15.55 21 15V9C21 8.45 20.55 8 20 8M21 4H2V6H21V4Z" />
-    </svg>`,
-    content: `
-        <mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image 2" />
-    `,
+    media: `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.56L16.07,16.43L16.62,10.33H9.38L9.2,8.3H16.8L17,6.31H7L7.56,12.32H14.45L14.22,14.9L12,15.5L9.78,14.9L9.64,13.24H7.64L7.93,16.43L12,17.56M4.07,3H19.93L18.5,19.2L12,21L5.5,19.2L4.07,3Z" /></svg>`,
+    content: `<mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image 2" />`,
   });
-
 };
