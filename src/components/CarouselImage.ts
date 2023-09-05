@@ -48,19 +48,20 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
         "style-default": {
           border: "3px solid green",
         },
-        traits: ["href", "src", "rel", "alt", "title"],
+        // traits: ["href", "src", "rel", "alt", "title"],
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: "table",
+      tagName: "a",
       attributes: {
-        style: "width: 90%;",
+        style: "pointer-events: all; float: none; display: inline-table;",
       },
 
       getMjmlTemplate() {
         let parentView = this.model.parent()?.view;
+        // console.log("parView: ", parentView);
 
         // if (parentView?.getInnerMjmlTemplate) {
         //   let mjmlCarousel = coreMjmlView.getInnerMjmlTemplate.call(parentView);
@@ -85,7 +86,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
       },
 
       getTemplateFromEl(sandboxEl: any) {
-        return sandboxEl.querySelector("tr").innerHTML;
+        return sandboxEl.querySelector('a.mj-carousel-thumbnail').innerHTML;
       },
 
       getChildrenSelector() {

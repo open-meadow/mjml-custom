@@ -137,11 +137,41 @@ export default (
       getInnerMjmlTemplate() {
         let innerMjmlTemplate = coreMjmlView.getInnerMjmlTemplate.call(this);
         // TODO replace this with dynamic mjml images
+        // console.log("innerMjmlTemplate: ", innerMjmlTemplate);
+        // console.log("this: ", this);
+        console.log(
+          "this.model.config.components: ",
+          this.model.config.components,
+          typeof this.model.config.components
+        );
+
+        let mjmlString = this.model.config.components || "";
+        mjmlString?.toString();
+        const carouselRegex = /<mj-carousel>[\s\S]*?<\/mj-carousel>/g;
+        const imageRegex = /<mj-carousel-image[^>]*>/g;
+        // console.log("carouselRegex: ", carouselRegex);
+
+        const carouselMatches = (mjmlString as string).match(carouselRegex);
+        // console.log("carouselMatches: ", carouselMatches);
+        let finalImages = "";
+
+        carouselMatches?.forEach((carousel, index) => {
+          // console.log(`Carousel ${index + 1}`);
+          const imageMatches = carousel.match(imageRegex);
+          // console.log("imageMatches: ", imageMatches);
+          if (imageMatches) {
+            imageMatches.forEach((image, imgIndex) => {
+              // console.log(` Image ${imgIndex + 1}`);
+              // console.log(image);
+              finalImages += image + "\n";
+            });
+          }
+        });
+
+        console.log("finalImages: ", finalImages);
+
         innerMjmlTemplate.start = `${innerMjmlTemplate.start}
-          <mj-carousel-image src="https://source.unsplash.com/random/200x141"></mj-carousel-image>
-          <mj-carousel-image src="https://source.unsplash.com/random/200x142"></mj-carousel-image>
-          <mj-carousel-image src="https://source.unsplash.com/random/200x143"></mj-carousel-image>`;
-        console.log("innerMjmlTemplate: ", innerMjmlTemplate.start);
+          ${finalImages}`;
         // innerMjmlTemplate.start = `${innerMjmlTemplate.start}${this.model.getCarouselImagesMjml()}`;
         return innerMjmlTemplate;
       },
