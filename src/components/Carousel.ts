@@ -6,6 +6,9 @@ import {
   isComponentType,
   mjmlConvert,
 } from "./utils";
+
+import mjml2html from "mjml";
+
 import { type as typeSection } from "./Section";
 import { type as typeColumn } from "./Column";
 import { type as typeHero } from "./Hero";
@@ -17,7 +20,9 @@ export default (
   editor: Editor,
   { opt, coreMjmlModel, coreMjmlView, sandboxEl }: any
 ) => {
+  
   console.log("Carousel!!!");
+
   editor.Components.addType(type, {
     isComponent: isComponentType(type),
     model: {
@@ -71,45 +76,6 @@ export default (
           "pointer-events: all; display: table; width: 100%; border: 3px solid red;",
       },
 
-      // render() {
-      //   this.renderAttributes();
-      //   const sandbox = document.createElement('div');
-      //   let mjmlResult = this.getTemplateFromMjmlWithStyle();
-      //   sandbox.innerHTML = mjmlResult.content;
-      //   const carouselEl = sandbox.querySelector('.mj-carousel');
-
-      //   editor.addComponents(`<style>${mjmlResult.style}</style>`);
-      //   debugger;
-      //   this.renderStyle();
-      //   return this;
-      // },
-
-      // getTemplateFromEl(sandboxEl: { firstChild: { querySelector: (arg0: string) => { (): any; new(): any; parentElement: any; }; }; }) {
-      //   return sandboxEl.firstChild.querySelector('.mj-carousel').parentElement;
-      // },
-
-      // getChildrenSelector() {
-      //   return '.mj-carousel-images';
-      // },
-
-      // getInnerMjmlTemplate() {
-      //   let innerMjmlTemplate = coreMjmlView.getInnerMjmlTemplate.call(this);
-      //   // TODO replace this with dynamic mjml images
-      //   innerMjmlTemplate.start = `${innerMjmlTemplate.start}
-      //     <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/11/ecommerce-guide.jpg"></mj-carousel-image>
-      //     <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/3@1x.png"></mj-carousel-image>
-      //     <mj-carousel-image src="https://www.mailjet.com/wp-content/uploads/2016/09/1@1x.png"></mj-carousel-image>`;
-      //   // innerMjmlTemplate.start = `${innerMjmlTemplate.start}${this.model.getCarouselImagesMjml()}`;
-      //   return innerMjmlTemplate;
-      // },
-
-      // getMjmlTemplate() {
-      //   return {
-      //     start: `<mjml><mj-body><mj-section><mj-column>`,
-      //     end: `</mj-column></mj-section></mj-body></mjml>`,
-      //   };
-      // },
-
       init() {
         coreMjmlView.init.call(this);
         this.listenTo(
@@ -118,6 +84,15 @@ export default (
           this.render
         );
       },
+
+      // getTemplateFromMjml() {
+      //   const mjmlTmpl = this.getMjmlTemplate();
+      //   console.log("mjmlTmpl: ", mjmlTmpl);
+      //   const innerMjml = this.getInnerMjmlTemplate();
+      //   const htmlOutput = mjmlConvert(`${mjmlTmpl.start}
+      //     ${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`, opt.fonts);
+      //   const html = htmlOutput.html;
+      // },
 
       getMjmlTemplate() {
         return {
@@ -136,9 +111,6 @@ export default (
 
       getInnerMjmlTemplate() {
         let innerMjmlTemplate = coreMjmlView.getInnerMjmlTemplate.call(this);
-        // TODO replace this with dynamic mjml images
-        // console.log("innerMjmlTemplate: ", innerMjmlTemplate);
-        // console.log("this: ", this);
         console.log(
           "this.model.config.components: ",
           this.model.config.components,
