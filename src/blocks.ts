@@ -210,4 +210,30 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
     media: `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,17.56L16.07,16.43L16.62,10.33H9.38L9.2,8.3H16.8L17,6.31H7L7.56,12.32H14.45L14.22,14.9L12,15.5L9.78,14.9L9.64,13.24H7.64L7.93,16.43L12,17.56M4.07,3H19.93L18.5,19.2L12,21L5.5,19.2L4.07,3Z" /></svg>`,
     content: `<mj-carousel-image class="item" src="https://source.unsplash.com/random/200x146" alt="Example image 2" />`,
   });
+
+  addBlock("mj-table", {
+    label: getI18nLabel("table"),
+    media: `<svg viewBox="0 0 23 24">
+    <path fill="currentColor" d="M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z"/>
+  </svg>`,
+    content: `
+    <mj-table>
+      <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+        <th style="padding: 0 15px 0 0;">Year</th>
+        <th style="padding: 0 15px;">Language</th>
+        <th style="padding: 0 0 0 15px;">Inspired from</th>
+      </tr>
+      <tr>
+        <td style="padding: 0 15px 0 0;">1995</td>
+        <td style="padding: 0 15px;">PHP</td>
+        <td style="padding: 0 0 0 15px;">C, Shell Unix</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 15px 0 0;">1995</td>
+        <td style="padding: 0 15px;">JavaScript</td>
+        <td style="padding: 0 0 0 15px;">Scheme, Self</td>
+      </tr>
+    </mj-table>`,
+    // attributes: { class: 'fa fa-image' },
+  });
 };

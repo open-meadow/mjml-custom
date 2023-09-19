@@ -22,6 +22,7 @@ import loadHero from "./Hero";
 import loadRaw from "./Raw";
 import loadCarousel from "./Carousel";
 import loadCarouselImage from "./CarouselImage";
+import loadTable from "./Table";
 import { RequiredPluginOptions } from "..";
 
 export default (editor: Editor, opt: RequiredPluginOptions) => {
@@ -339,5 +340,6 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadRaw,
     loadCarousel,
     loadCarouselImage,
+    loadTable
   ].forEach((module) => module(editor, compOpts));
 };

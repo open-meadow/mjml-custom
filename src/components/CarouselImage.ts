@@ -56,7 +56,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: any) => {
       ...coreMjmlView,
       tagName: "a",
       attributes: {
-        style: "pointer-events: all; float: none; display: inline-table;",
+        style: "pointer-events: all; float: none; display: inline-table; border: 3px solid green;",
       },
 
       getMjmlTemplate() {

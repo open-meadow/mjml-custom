@@ -20,7 +20,6 @@ export default (
   editor: Editor,
   { opt, coreMjmlModel, coreMjmlView, sandboxEl }: any
 ) => {
-  
   console.log("Carousel!!!");
 
   editor.Components.addType(type, {
@@ -72,8 +71,7 @@ export default (
       ...coreMjmlView,
       tagName: "tr",
       attributes: {
-        style:
-          "pointer-events: all; display: table; width: 100%; border: 3px solid red;",
+        styles: `pointer-events: all; display: table; width: 100%; border: 3px solid red;`,
       },
 
       init() {
@@ -128,7 +126,7 @@ export default (
         let finalImages = "";
 
         carouselMatches?.forEach((carousel, index) => {
-          // console.log(`Carousel ${index + 1}`);
+          // console.log(`Carou sel ${index + 1}`);
           const imageMatches = carousel.match(imageRegex);
           // console.log("imageMatches: ", imageMatches);
           if (imageMatches) {
