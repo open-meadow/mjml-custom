@@ -71,7 +71,7 @@ export default (
       ...coreMjmlView,
       tagName: "tr",
       attributes: {
-        styles: `pointer-events: all; display: table; width: 100%; border: 3px solid red;`,
+        styles: "pointer-events: all; display: table; width: 100%; border: 3px solid red;",
       },
 
       init() {
